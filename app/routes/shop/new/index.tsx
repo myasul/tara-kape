@@ -7,7 +7,7 @@ const ShopNew = () => {
                 <ArrowSmLeftIcon className='h-6 stroke-link-blue' />
                 <h3 className='font-semibold'>Add new shop</h3>
             </header>
-            <section className='flex flex-col w-11/12 mx-auto justify-between h-full mt-4 !text-header-blue'>
+            <section className='flex flex-col w-11/12 mx-auto justify-between h-full mt-4 text-header-blue'>
                 <section className='flex flex-col gap-3'>
                     <div className='flex flex-col-reverse gap-2'>
                         <input

@@ -974,6 +974,10 @@ html {
   margin-bottom: 1rem;
 }
 
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
 .flex {
   display: flex;
 }
@@ -992,6 +996,14 @@ html {
 
 .h-6 {
   height: 1.5rem;
+}
+
+.h-2 {
+  height: 0.5rem;
+}
+
+.h-4 {
+  height: 1rem;
 }
 
 .w-full {
@@ -1042,6 +1054,10 @@ html {
   gap: 0.5rem;
 }
 
+.gap-5 {
+  gap: 1.25rem;
+}
+
 .border-2 {
   border-width: 2px;
 }
@@ -1054,6 +1070,10 @@ html {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.fill-link-blue {
+  fill: #2297C7;
 }
 
 .stroke-link-blue {
