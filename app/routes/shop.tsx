@@ -1,7 +1,7 @@
 import { Outlet } from '@remix-run/react'
 
 const Shop = () => (
-    <main>
+    <main className='h-full'>
         <Outlet />
     </main>
 )
