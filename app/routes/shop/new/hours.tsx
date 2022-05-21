@@ -6,6 +6,36 @@ type BusinessSchedule = {
     [day in Day]?: BusinessHours
 }
 
+const convert24hourTo12Hour = (time: string) => {
+    const [hourString, minuteString] = time.split(':')
+
+    if (!(hourString && minuteString)) throw new Error(`Invalid time string. Time: ${time}`)
+
+    const isInvalidHour = isNaN(Number(hourString)) || Number(hourString) > 23
+    const isInvalidMinute = isNaN(Number(minuteString)) || Number(minuteString) > 59
+
+    if (isInvalidHour || isInvalidMinute) throw new Error(`Invalid time string. Time: ${time}`)
+
+    const hour = Number(hourString)
+    const twelveHour = hour % 12 === 0 ? 12 : hour % 12
+    const minute = Number(minuteString)
+    const period = hour <= 12 ? 'AM' : 'PM'
+
+    return `${twelveHour}:${minute} ${period}`
+}
+
+const formatBusinessHour = (businessSchedule: BusinessSchedule, day: Day) => {
+    const businessHours = businessSchedule[day]
+
+    if (!businessHours) return ''
+
+    const { openTime, closeTime } = businessHours
+
+    if (openTime === null || closeTime === null) return 'CLOSED'
+
+    return `${convert24hourTo12Hour(openTime)} - ${convert24hourTo12Hour(closeTime)}`
+}
+
 const Hours = () => {
     const [selectedDay, setSelectedDay] = useState<Day>()
     const [businessSchedule, setBusinessSchedule] = useState<BusinessSchedule>({})
@@ -19,16 +49,6 @@ const Hours = () => {
 
         setBusinessSchedule({ ...businessSchedule, ...updatedBusinessSchedule })
         setSelectedDay(undefined)
-    }
-
-    const formatBusinessHour = (businessSchedule: BusinessSchedule, day: Day) => {
-        const businessHours = businessSchedule[day]
-
-        if (!businessHours) return ''
-
-        const { openTime, closeTime } = businessHours
-
-        return `${openTime} - ${closeTime}`
     }
 
     return (
