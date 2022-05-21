@@ -8,8 +8,8 @@ const ShopNew = () => {
                 <h3 className='font-semibold'>Add new shop</h3>
             </header>
             <section className='flex flex-col w-11/12 mx-auto justify-between h-full mt-4 text-header-blue'>
-                <section className='flex flex-col gap-3'>
-                    <div className='flex flex-col-reverse gap-2'>
+                <section className='flex flex-col gap-2'>
+                    <div className='flex flex-col-reverse gap-1'>
                         <input
                             required
                             type="text"
@@ -23,7 +23,7 @@ const ShopNew = () => {
                             Name
                         </label>
                     </div>
-                    <div className='flex flex-col-reverse gap-2'>
+                    <div className='flex flex-col-reverse gap-1'>
                         <input
                             type="text"
                             name='description'
@@ -36,7 +36,7 @@ const ShopNew = () => {
                             Description
                         </label>
                     </div>
-                    <div className='flex flex-col-reverse gap-2'>
+                    <div className='flex flex-col-reverse gap-1'>
                         <input
                             type="text"
                             name='description'
@@ -77,7 +77,7 @@ const ShopNew = () => {
                             </label>
                         </div>
                     </div>
-                    <div className='flex flex-col-reverse gap-2'>
+                    <div className='flex flex-col-reverse gap-1'>
                         <input
                             type="text"
                             name='description'
@@ -90,7 +90,7 @@ const ShopNew = () => {
                             Phone Number
                         </label>
                     </div>
-                    <div className='flex flex-col-reverse gap-2'>
+                    <div className='flex flex-col-reverse gap-1'>
                         <input
                             type="text"
                             name='description'
