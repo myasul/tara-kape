@@ -1,17 +1,34 @@
 import { ArrowSmLeftIcon, PencilAltIcon } from '@heroicons/react/outline'
 import { useState } from 'react'
-import { BusinessHoursModal, BUSINESS_HOURS_MODAL_NAME } from '~/components/shop/new/hours/BusinessHoursModal'
+import { BusinessHours, BusinessHoursModal, BUSINESS_HOURS_MODAL_NAME, Day } from '~/components/shop/new/hours/BusinessHoursModal'
+
+type BusinessSchedule = {
+    [day in Day]?: BusinessHours
+}
 
 const Hours = () => {
-    const [sunday, setSunday] = useState()
-    const [monday, setMonday] = useState()
-    const [tuesday, setTuesday] = useState()
-    const [wednesday, setWednesday] = useState()
-    const [thursday, setThursday] = useState()
-    const [friday, setFriday] = useState()
-    const [saturday, setSaturday] = useState()
+    const [selectedDay, setSelectedDay] = useState<Day>()
+    const [businessSchedule, setBusinessSchedule] = useState<BusinessSchedule>({})
 
-    const handleBusinessHourChange = () => {
+    const handleBusinessHourChange = (selectedDays: Day[], businessHours: BusinessHours) => {
+        const updatedBusinessSchedule: BusinessSchedule = {}
+
+        for (const day of selectedDays) {
+            updatedBusinessSchedule[day] = businessHours
+        }
+
+        setBusinessSchedule({ ...businessSchedule, ...updatedBusinessSchedule })
+        setSelectedDay(undefined)
+    }
+
+    const formatBusinessHour = (businessSchedule: BusinessSchedule, day: Day) => {
+        const businessHours = businessSchedule[day]
+
+        if (!businessHours) return ''
+
+        const { openTime, closeTime } = businessHours
+
+        return `${openTime} - ${closeTime}`
     }
 
     return (
@@ -25,63 +42,84 @@ const Hours = () => {
                     <div className='flex justify-between w-full'>
                         <span>Sunday</span>
                         <div className='flex gap-2'>
-                            <span>5:30 AM-12:00 AM</span>
+                            <span>{formatBusinessHour(businessSchedule, Day.Sunday)}</span>
                             <label htmlFor={BUSINESS_HOURS_MODAL_NAME}>
-                                <PencilAltIcon className='h-6 stroke-link-blue' />
+                                <PencilAltIcon
+                                    className='h-6 stroke-link-blue'
+                                    onClick={() => setSelectedDay(Day.Sunday)}
+                                />
                             </label>
                         </div>
                     </div>
                     <div className='flex justify-between w-full'>
                         <span>Monday</span>
                         <div className='flex gap-2'>
-                            <span>5:30 AM-12:00 AM</span>
+                            <span>{formatBusinessHour(businessSchedule, Day.Monday)}</span>
                             <label htmlFor={BUSINESS_HOURS_MODAL_NAME}>
-                                <PencilAltIcon className='h-6 stroke-link-blue' />
+                                <PencilAltIcon
+                                    className='h-6 stroke-link-blue'
+                                    onClick={() => setSelectedDay(Day.Monday)}
+                                />
                             </label>
                         </div>
                     </div>
                     <div className='flex justify-between w-full'>
                         <span>Tuesday</span>
                         <div className='flex gap-2'>
-                            <span>5:30 AM-12:00 AM</span>
+                            <span>{formatBusinessHour(businessSchedule, Day.Tuesday)}</span>
                             <label htmlFor={BUSINESS_HOURS_MODAL_NAME}>
-                                <PencilAltIcon className='h-6 stroke-link-blue' />
+                                <PencilAltIcon
+                                    className='h-6 stroke-link-blue'
+                                    onClick={() => setSelectedDay(Day.Tuesday)}
+                                />
                             </label>
                         </div>
                     </div>
                     <div className='flex justify-between w-full'>
                         <span>Wednesday</span>
                         <div className='flex gap-2'>
-                            <span>5:30 AM-12:00 AM</span>
+                            <span>{formatBusinessHour(businessSchedule, Day.Wednesday)}</span>
                             <label htmlFor={BUSINESS_HOURS_MODAL_NAME}>
-                                <PencilAltIcon className='h-6 stroke-link-blue' />
+                                <PencilAltIcon
+                                    className='h-6 stroke-link-blue'
+                                    onClick={() => setSelectedDay(Day.Wednesday)}
+                                />
                             </label>
                         </div>
                     </div>
                     <div className='flex justify-between w-full'>
                         <span>Thursday</span>
                         <div className='flex gap-2'>
-                            <span>5:30 AM-12:00 AM</span>
+                            <span>{formatBusinessHour(businessSchedule, Day.Thursday)}</span>
                             <label htmlFor={BUSINESS_HOURS_MODAL_NAME}>
-                                <PencilAltIcon className='h-6 stroke-link-blue' />
+                                <PencilAltIcon
+                                    className='h-6 stroke-link-blue'
+                                    onClick={() => setSelectedDay(Day.Thursday)}
+                                />
                             </label>
                         </div>
                     </div>
                     <div className='flex justify-between w-full'>
                         <span>Friday</span>
                         <div className='flex gap-2'>
-                            <span>5:30 AM-12:00 AM</span>
+                            <span>{formatBusinessHour(businessSchedule, Day.Friday)}</span>
                             <label htmlFor={BUSINESS_HOURS_MODAL_NAME}>
-                                <PencilAltIcon className='h-6 stroke-link-blue' />
+                                <PencilAltIcon
+                                    className='h-6 stroke-link-blue'
+                                    onClick={() => setSelectedDay(Day.Friday)}
+                                />
                             </label>
                         </div>
                     </div>
                     <div className='flex justify-between w-full'>
                         <span>Saturday</span>
                         <div className='flex gap-2'>
-                            <span>5:30 AM-12:00 AM</span>
+                            <span>{formatBusinessHour(businessSchedule, Day.Saturday)}</span>
                             <label htmlFor={BUSINESS_HOURS_MODAL_NAME}>
-                                <PencilAltIcon className='h-6 stroke-link-blue' />
+                                <PencilAltIcon
+                                    className='h-6 stroke-link-blue'
+                                    onClick={() => setSelectedDay(Day.Saturday)}
+                                />
                             </label>
                         </div>
                     </div>
@@ -90,7 +128,11 @@ const Hours = () => {
                     Save
                 </button>
             </section>
-            <BusinessHoursModal />
+            <BusinessHoursModal
+                businessHours={selectedDay ? businessSchedule[selectedDay] : undefined}
+                selectedDay={selectedDay}
+                onSaveBusinessHours={handleBusinessHourChange}
+            />
         </div>
     )
 }
